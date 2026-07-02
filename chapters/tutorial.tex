@@ -1,0 +1,297 @@
+\chapter{Using the Thesis Template}
+
+This template provides a starting point for writing a bachelor's or master's thesis. This tutorial chapter walks you through some important \LaTeX{} commands that will help you write your thesis.
+
+% ==================================================
+\section{Project Structure}
+% ==================================================
+
+You will find the following files and folders in this project template:
+
+\begin{itemize}
+    \item \textbf{config.tex}: your thesis metadata (title, name, thesis type, reviewers, supervisor, ...). Edit this first!
+    \item \textbf{main.tex}: main document that loads the template and includes all chapters.
+    \item \textbf{chapters/}: add and write the actual thesis chapters here.
+    \item \textbf{figures/}: store images, plots and screenshots here.
+    \item \textbf{declaration/}:  contains the declaration of authorship.
+    \item \textbf{references.bib}: store all literature references here.
+    \item \textbf{hci-thesis.cls}: template style file. Don't edit this.
+\end{itemize}
+
+You can rename folders, add new ones or restructure the template to your liking. However, you should always keep \textbf{config.tex} in your project and leave \textbf{hci-thesis.cls} as is.
+
+% ==================================================
+\section{Entering Your Thesis Information}
+% ==================================================
+
+Before writing your thesis, open \texttt{config.tex} and enter your personal information. The template pulls this information into the title page and preamble.
+
+\begin{lstlisting}[language=TeX,caption={Example configuration in config.tex}]
+\newcommand{\thesislang}{english}
+\newcommand{\thesislevel}{master}
+\newcommand{\thesistitle}{The Best Thesis}
+...
+\end{lstlisting}
+
+
+% ==================================================
+\section{Structuring Your Thesis}
+% ==================================================
+
+Most empirical theses follow a structure similar to IMRAD (Introduction, Method, Results, and Discussion). As a starting point, your thesis outline in human-computer interaction could look like this:
+
+\begin{quote}
+\singlespacing
+1.\quad Introduction\\
+2.\quad Related Work\\
+\hspace*{1.5em}2.1\quad Topic 1\\
+\hspace*{1.5em}2.2\quad Topic 2\\
+3.\quad Method\\
+\hspace*{1.5em}3.1\quad Participants\\
+\hspace*{1.5em}3.2\quad Apparatus\\
+\hspace*{1.5em}3.3\quad Procedure\\
+\hspace*{1.5em}3.4\quad Experimental Design\\
+4.\quad Results\\
+5.\quad Discussion\\
+6.\quad Conclusion\\
+\end{quote}
+
+In \LaTeX, the structure is created using \texttt{\textbackslash chapter}, \texttt{\textbackslash section}, and \texttt{\textbackslash subsection}.
+
+\begin{lstlisting}[language=TeX,caption={Chapters, sections, and subsections},title={Creating Chapters}]
+\chapter{Method}
+\section{Participants}
+\section{Apparatus}
+\section{Procedure}
+\section{Experimental Design}
+\end{lstlisting}
+
+You could write all chapters into the \texttt{main.tex} file. However, to keep the thesis organized, write each chapter in a separate file inside the \texttt{chapters/} folder. Then include this file into your main file with \texttt{\textbackslash include}.
+
+\begin{lstlisting}[language=TeX,caption={Including chapter files in main.tex}]
+\input{chapters/introduction}
+\input{chapters/related_work}
+\input{chapters/method}
+\input{chapters/results}
+\input{chapters/discussion}
+\input{chapters/conclusion}
+\end{lstlisting}
+
+
+% ==================================================
+\section{Citations}
+% ==================================================
+
+References are stored in \texttt{references.bib}. To cite a reference, use its citation key. The following examples assume that the key \texttt{shneidermanResponseTimeDisplay1984a} exists in the bibliography.
+
+\begin{itemize}
+    \item \texttt{\textbackslash cite\{k\}}: \cite{shneidermanResponseTimeDisplay1984a}
+    \item \texttt{\textbackslash citet\{k\}}: \citet{shneidermanResponseTimeDisplay1984a}
+\end{itemize}
+
+Use \texttt{\textbackslash citet\{\}} when the authors are part of the sentence (e.g., "\citet{shneidermanResponseTimeDisplay1984a} showed that ..."). Use \texttt{\textbackslash cite\{\}} when the citation appears in parentheses (e.g., "... has been shown previously \cite{shneidermanResponseTimeDisplay1984a}.").
+
+To cite multiple references at once, simply separate the citation keys with commas:
+
+\begin{itemize}
+    \item \texttt{\textbackslash cite\{k\}}: \cite{shneidermanResponseTimeDisplay1984a, pavlov1927ConditionedReflexesInvestigation2010}
+    \item \texttt{\textbackslash citet\{k\}}: \citet{shneidermanResponseTimeDisplay1984a, pavlov1927ConditionedReflexesInvestigation2010}
+\end{itemize}
+
+Citations in \texttt{references.bib} must be in BibTeX format. Reference management software, such as Zotero, Mendeley or Citavi, can automatically generate BibTeX entries for your project. It is highly recommended to use such tools for organizing and citing literature.
+
+% ==================================================
+\section{Figures}
+% ==================================================
+
+Figures can be stored in the \texttt{figures/} folder to keep the project organized. Feel free to rename this folder, create additional folders, or use any structure that works best for your workflow. A figure usually consists of the image, a caption, and a label that allows you to reference it in the text (e.g., \verb|Figure~\ref{fig:example}| will output: Figure~\ref{fig:example}).
+The placement of a figure can be suggested with an optional argument in square brackets after \texttt{\textbackslash begin\{figure\}}, for example \texttt{\textbackslash begin\{figure\}[ht]}. Common options are \texttt{h} (here), \texttt{t} (top), \texttt{b} (bottom), and \texttt{p} (separate page).
+
+\begin{lstlisting}[language=TeX,caption={Inserting a figure}]
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.65\linewidth]{figures/example.pdf}
+    \caption{Example figure.}
+    \label{fig:example}
+\end{figure}
+\end{lstlisting}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.65\linewidth]{figures/example.pdf}
+    \caption{Example figure.}
+    \label{fig:example}
+\end{figure}
+
+
+
+
+% ==================================================
+\section{Tables}
+% ==================================================
+
+Use tables to present structured data clearly. Like figures, tables should always have a caption and a label so they can be referenced in the text (e.g., \texttt{Table\textasciitilde\textbackslash ref\{tab:example\}} will output: Table~\ref{tab:example}).
+
+This template includes the \texttt{booktabs} package, which provides the commands \texttt{\textbackslash toprule}, \texttt{\textbackslash midrule}, and \texttt{\textbackslash bottomrule} for creating clean tables.
+
+The column specification defines the alignment of each column. For example, \texttt{l}, \texttt{c}, and \texttt{r} create left-, center-, and right-aligned columns. In the example below, \texttt{\{lcc\}} creates one left-aligned column followed by two centered columns.
+
+If you already have a table in Excel or another spreadsheet application, tools such as \textit{TablesGenerator}\footnote{https://www.tablesgenerator.com/} can convert it directly into \LaTeX{} code and are also useful for creating and editing table layouts.
+
+The following example shows a simple table and the resulting output.
+
+
+\begin{lstlisting}[language=TeX,caption={Creating a table}]
+\begin{table}[ht]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Condition & Mean RT (ms) & SD (ms) & Accuracy (\%)\\
+\midrule
+No Delay & 486 & 49 & 98.3\\
+200 ms Delay & 503 & 51 & 98.0\\
+400 ms Delay & 527 & 56 & 97.6\\
+600 ms Delay & 551 & 62 & 97.2\\
+1000 ms Delay & 589 & 67 & 96.8\\
+\bottomrule
+\end{tabular}
+\caption{Example reaction time data for five experimental conditions.}
+\label{tab:example}
+\end{table}
+\end{lstlisting}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Condition & Mean RT (ms) & SD (ms) & Accuracy (\%)\\
+\midrule
+No Delay & 486 & 49 & 98.3\\
+200 ms Delay & 503 & 51 & 98.0\\
+400 ms Delay & 527 & 56 & 97.6\\
+600 ms Delay & 551 & 62 & 97.2\\
+1000 ms Delay & 589 & 67 & 96.8\\
+\bottomrule
+\end{tabular}
+\caption{Example reaction time data for five experimental conditions.}
+\label{tab:example}
+\end{table}
+
+
+
+% ==================================================
+\section{Equations}
+% ==================================================
+
+Equations can be created using the \texttt{\textbackslash equation} command. Like figures and tables, equations can have a label so they can be referenced in the text. You can then reference your equation with \texttt{Equation\textasciitilde\textbackslash ref\{eq:fitts\}} (Equation~\ref{eq:fitts}).
+
+\begin{lstlisting}[language=TeX,caption={Creating an equation}]
+\begin{equation}
+MT = a + b * ID = a + b * \log_2\left(\frac{D}{W}+1\right)
+\label{eq:fitts}
+\end{equation}
+\end{lstlisting}
+
+Example output:
+
+\begin{equation}
+MT = a + b * ID = a + b * \log_2\left(\frac{D}{W}+1\right)
+\label{eq:fitts}
+\end{equation}
+
+
+% ==================================================
+\section{Source Code}
+% ==================================================
+
+Source code can be displayed using the \texttt{lstlisting} command. Like figures, tables, and equations, code listings can have a caption and a label so they can be referenced in the text (e.g., \texttt{Listing\textasciitilde\textbackslash ref\{lst:fizzbuzz\}} will ouput: Listing~\ref{lst:fizzbuzz}).
+
+\begin{latexexample}[caption={Creating a code snippet}]
+\begin{lstlisting}[language=Python,caption={Example Python code},label={lst:fizzbuzz}]
+for i in range(1, 101):
+    if i % 15 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+\end{lstlisting}
+\end{latexexample}
+
+Example output:
+
+\begin{lstlisting}[language=Python,caption={Example Python code},label={lst:fizzbuzz}]
+for i in range(1, 101):
+    if i % 15 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+\end{lstlisting}
+
+
+% ==================================================
+\section{Useful Tips}
+% ==================================================
+
+```latex
+The following commands are useful while writing your thesis.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lll}
+\toprule
+Task & Command & Output\\
+\midrule
+Comment & \texttt{\% This is a comment} & --\\
+Bold text & \texttt{\textbackslash textbf\{important\}} & \textbf{important}\\
+Italic text & \texttt{\textbackslash textit\{important\}} & \textit{important}\\
+Monospace text & \texttt{\textbackslash texttt\{code\}} & \texttt{code}\\
+Small capitals & \texttt{\textbackslash textsc\{important\}} & \textsc{important}\\
+Line break & \texttt{\textbackslash\textbackslash} & New line\\
+Non-breaking space & \texttt{\textasciitilde} & Prevents line breaks\\
+Percent sign & \texttt{\textbackslash\%} & \%\\
+Underscore & \texttt{\textbackslash\_} & \_\\
+Ampersand & \texttt{\textbackslash\&} & \&\\
+Dollar sign & \texttt{\textbackslash\$} & \$\\
+Footnote & \texttt{\textbackslash footnote\{text\}} & Footnote\\
+URL & \texttt{\textbackslash url\{https://...\}} & URL\\
+New Page & \texttt{\textbackslash newpage} & Page break\\
+\bottomrule
+\end{tabular}
+\caption{Useful \LaTeX{} commands.}
+\label{tab:tips}
+\end{table}
+
+Use \texttt{\textasciitilde} between words that should not be separated by a line break. For example, write \texttt{Figure\textasciitilde\textbackslash ref\{fig:example\}} instead of \texttt{Figure \textbackslash ref\{fig:example\}}.
+
+
+% ==================================================
+\section{Appendix}
+% ==================================================
+
+
+Additional material, such as questionnaires, supplementary figures or implementation details, can be included in the appendix. To add an appendix, insert the following lines near the end of \texttt{main.tex}, typically after the references.
+
+\begin{lstlisting}[language=TeX,caption={Including an appendix}]
+\printbibliography
+% add this
+\appendix
+\input{chapters/appendix}
+\end{lstlisting}
+
+The appendix file is structured like the rest of the thesis and can contain chapters, sections, figures, tables, and any other \LaTeX{} content.
+
+\begin{lstlisting}[language=TeX,caption={Example appendix file}]
+\chapter{Additional Material}
+\section{Questionnaire}
+Place questionnaires or study material here.
+\section{Additional Figures}
+Place supplementary figures here.
+\end{lstlisting}
+

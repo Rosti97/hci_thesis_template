@@ -1,0 +1,65 @@
+\input{config}
+
+
+\documentclass{hci-thesis}
+
+
+% ==========
+% References
+% ==========
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\makethesistitle
+
+% ==========
+% Front matter
+% ==========
+
+\frontmattermode
+
+\include{chapters/abstract}
+
+\tableofcontents
+
+\clearpage
+
+
+% ==========
+% Main matter
+% ==========
+
+\mainmattermode
+
+\include{chapters/tutorial_}
+% \include{sections/methods}
+% \include{sections/results}
+% \include{sections/discussion}
+% \include{sections/conclusion}
+
+% ==========
+% Back matter
+% ==========
+
+\printbibliography
+
+% optional appendix
+% \appendix
+% \input{...}
+
+% ==========
+% Declaration
+% ==========
+
+\cleardoublepage
+
+\ifdefstring{\thesislang}{ngerman}{
+    \include{declaration/declaration_de}
+}{
+    \include{declaration/declaration_en}
+}
+
+
+\end{document}
