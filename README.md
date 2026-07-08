@@ -16,11 +16,10 @@ A template for Bachelor and Master theses for the Media Informatics / HCI group 
 .
 ├── chapters/          Thesis chapters
 ├── figures/           Images
-├── bibliography/      References
-├── glossary/          Glossary and acronyms
-├── tutorial.tex       Template tutorial
+├── declaration/       Declaration of authorship (in English & German)
 ├── config.tex         Thesis configuration
 ├── HCIthesis.cls      Template class
+├── references.bib     References
 └── main.tex           Main document
 ```
 
