@@ -119,6 +119,9 @@
   uniquename=init
 ]{biblatex}
 
+% everything should be cited with "et al."
+\DefineBibliographyStrings{ngerman}{andothers={et\addabbrvspace al\adddot}}
+
 \let\oldcite\cite
 \renewcommand{\cite}[2][]{%
   \ifstrempty{#1}{\citep{#2}}{\citep[#1]{#2}}%
